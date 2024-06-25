@@ -2,7 +2,6 @@
 import type { CallToAction, Widget } from '~/types';
 import Headline from '~/components/Headline.astro';
 import Button from './Button.astro';
-import Background from './Background.astro';
 
 interface Props extends Widget {
   title?: string;
@@ -17,11 +16,8 @@ const {
   subtitle = await Astro.slots.render('subtitle'),
   tagline = await Astro.slots.render('tagline'),
   actions = await Astro.slots.render('actions'),
-
   id,
-  isDark = false,
   classes = {},
-  bg = await Astro.slots.render('bg'),
 } = Astro.props;
 ---
 <section id={id} class={`max-w-full mx-auto ${classes?.container ?? ''} bg-call-to-action`} >

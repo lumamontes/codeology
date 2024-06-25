@@ -1,7 +1,6 @@
 ---
 import Button from "~/components/Button.astro";
 import Image from "~/common/Image.astro";
-import Background from "~/components/Background.astro";
 
 import type { Hero as Props } from "~/types";
 
@@ -9,7 +8,6 @@ const {
   title = await Astro.slots.render("title"),
   subtitle = await Astro.slots.render("subtitle"),
   tagline,
-
   content = await Astro.slots.render("content"),
   actions = await Astro.slots.render("actions"),
   image = await Astro.slots.render("image"),
@@ -100,13 +98,13 @@ const {
                   <Fragment set:html={image} />
                 ) : (
                   <Image
-                    class="mx-auto rounded-md w-full object-cover p-10"
+                    class="mx-auto rounded-md  object-cover p-10"
                     style="aspect-ratio: 0"
                     widths={[400, 768, 1024, 2040]}
                     sizes="(max-width: 767px) 400px, (max-width: 1023px) 768px, (max-width: 2039px) 1024px, 2040px"
                     loading="eager"
-                    width={500}
-                    height={500}
+                    width={450}
+                    height={450}
                     {...image}
                   />
                 )}

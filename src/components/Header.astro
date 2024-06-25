@@ -1,8 +1,6 @@
 ---
 import Logo from "~/components/Logo.astro";
-import { trimSlash, getAsset } from "~/utils/permalinks";
 import type { CallToAction } from "~/types";
-import Button from "./Button.astro";
 
 interface Link {
   text?: string;
@@ -32,14 +30,8 @@ export interface Props {
 const {
   id = "header",
   links = [],
-  actions = [],
-  isSticky = false,
-  isDark = false,
-  isFullWidth = false,
-  position = "center",
 } = Astro.props;
 
-const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 ---
 
 <script>
@@ -47,9 +39,11 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
   const navlinks = document.querySelector("#navlinks");
   const hamburger = document.querySelector("#hamburger");
   const layer = document.querySelector("#navLayer");
-  const links = [...navlinks.querySelector("ul").children];
+  const navlinksUl = navlinks && navlinks.querySelector("ul");
+  const links = navlinks && navlinksUl ? [...navlinksUl.children] : [];
 
   function toggleNavlinks() {
+    if(!navlinks || !hamburger || !layer) return;
     if (isToggled) {
       navlinks.classList.add(
         "!visible",
@@ -70,17 +64,19 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
       layer.classList.remove("origin-top", "scale-y-100");
     }
   }
-  hamburger.addEventListener("click", () => {
-    isToggled = !isToggled;
-    toggleNavlinks();
-  });
-
-  links.forEach((link) => {
-    link.addEventListener("click", () => {
+  if(hamburger){
+    hamburger.addEventListener("click", () => {
       isToggled = !isToggled;
       toggleNavlinks();
     });
-  });
+
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        isToggled = !isToggled;
+        toggleNavlinks();
+      });
+    });
+  }
 </script>
 
 <header
@@ -96,7 +92,7 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
       >
         <div class="relative z-20 flex w-full justify-between md:px-0 lg:w-max">
           <a
-            href="/#home"
+            href="/"
             aria-label="logo"
             class="flex items-center space-x-2"
           >

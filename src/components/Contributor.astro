@@ -52,7 +52,7 @@ const uniqueId = name.replace(/\s+/g, '-').toLowerCase();
       const bioText = document.getElementById(`bio-text-${uniqueId}`);
       
       button.addEventListener('click', () => {
-        const isHidden = bioText.classList.toggle('hidden');
+        const isHidden = bioText && bioText.classList.toggle('hidden');
         button.textContent = isHidden ? 'Show Bio' : 'Hide Bio';
       });
     });

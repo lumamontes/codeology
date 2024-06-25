@@ -1,5 +1,3 @@
-import { getPermalink } from "./utils/permalinks";
-
 export const headerData = {
   links: [
     {
