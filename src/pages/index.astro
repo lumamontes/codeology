@@ -1,0 +1,93 @@
+---
+import CodingCourses from "~/components/CodingCourses.astro";
+import Hero from "../components/Hero.astro";
+import CallToAction from "../components/CallToAction.astro";
+import Layout from "../layouts/PageLayout.astro";
+
+const metadata = {
+  title: "Codeology",
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero
+    actions={[
+      {
+        text: "Apply for roles",
+        target: "_blank",
+        href: "https://forms.gle/E4L7aMY6MowtxkQ49",
+        icon: "tabler:arrow-up-right",
+      },
+    ]}
+    image={{
+      src: "~/assets/images/levels-code.png",
+      alt: "Codeology  Hero Image",
+    }}
+    links={[
+      { text: "Home", href: "/" },
+      { text: "About us", href: "/about" },
+      { text: "Contact", href: "/contact" },
+    ]}
+  >
+    <Fragment slot="title"> ᴄᴏᴅᴇᴏʟᴏɢʏ </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="sm:inline">
+        <span class="font-semibold">Coding Dreams Into Reality</span> <br></span
+      >
+      Codeology is a non-profit dedicated to creating the future coders of the next
+      few generations
+    </Fragment>
+  </Hero>
+
+  <CodingCourses
+    title="Our mission"
+    subtitle="Codeology is a non-profit that provides free tutoring lessons to the ages of  5-29 for any coding language you are interested in"
+    items={[
+      {
+        title: "HTML",
+        description:
+          "The backbone of every website, structuring content like the skeleton of a building. Without HTML, web pages can't exist.",
+        icon: "skill-icons:html",
+      },
+      {
+        title: "CSS",
+        description:
+          "The stylist of the web, giving beauty and form to the content. CSS makes the web not just readable, but enjoyable.",
+        icon: "skill-icons:css",
+      },
+      {
+        title: "Javascript",
+        description:
+          "The magic behind interactive websites, allowing users to engage rather than just observe. It's what makes the web dynamic.",
+        icon: "skill-icons:javascript",
+      },
+      {
+        title: "Python",
+        description:
+          "A versatile language that powers web backends to data analysis. It's the engine behind the scenes, making complex tasks simple.",
+        icon: "skill-icons:python-light",
+      },
+    ]}
+  />
+
+  <CallToAction
+    actions={[
+      {
+        variant: "primary",
+        text: "Apply for roles",
+        target: "_blank",
+        href: "https://forms.gle/E4L7aMY6MowtxkQ49",
+        icon: "tabler:arrow-up-right",
+      },
+      {
+        variant: "secondary",
+        text: "Join our Discord",
+        href: "https://discord.com/channels/@me/1251323981580075080/1251324160999686347",
+      },
+    ]}
+  >
+    <Fragment slot="title"> Ready to make a change? </Fragment>
+  </CallToAction>
+</Layout>

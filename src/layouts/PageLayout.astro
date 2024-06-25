@@ -1,0 +1,27 @@
+---
+
+import { headerData, footerData } from '~/navigation';
+
+import type { MetaData } from '~/types';
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+export interface Props {
+  metadata?: MetaData;
+}
+
+const { metadata } = Astro.props;
+---
+
+<Layout metadata={metadata}>
+  <!-- <slot name="header"> -->
+    <Header {...headerData} />
+  <!-- </slot> -->
+  <main>
+    <slot />
+  </main>
+  <slot name="footer">
+    <Footer {...footerData} />
+  </slot>
+</Layout>

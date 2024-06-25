@@ -1,0 +1,41 @@
+---
+import "~/assets/styles/tailwind.css";
+
+import CommonMeta from "~/common/CommonMeta.astro";
+import Favicons from "~/components/Favicons.astro";
+
+import type { MetaData as MetaDataType } from "~/types";
+import BasicScripts from "~/common/BasicScripts.astro";
+import Metadata from "~/common/Metadata.astro";
+import { I18N } from "~/constants";
+import CustomStyles from "~/components/CustomStyles.astro";
+
+export interface Props {
+  metadata?: MetaDataType;
+}
+
+const { metadata = {} } = Astro.props;
+const { language, textDirection } = I18N;
+---
+
+<!doctype html>
+<html lang={language} dir={textDirection} class="2xl:text-[20px]">
+  <head>
+    <CommonMeta />
+    <CustomStyles />
+    <Favicons />
+    <Metadata {...metadata} />
+  </head>
+
+  <body class="antialiased text-default bg-page tracking-tight">
+    <slot />
+
+    <BasicScripts />
+
+    <style is:global>
+      img {
+        content-visibility: auto;
+      }
+    </style>
+  </body>
+</html>

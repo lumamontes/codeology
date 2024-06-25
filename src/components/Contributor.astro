@@ -1,0 +1,60 @@
+---
+interface Props {
+  name: string;
+  role: string;
+  photo: string;
+  bio?: string;
+}
+const { name, role, photo, bio } = Astro.props;
+const uniqueId = name.replace(/\s+/g, '-').toLowerCase();
+---
+
+<li class="flex flex-col items-center text-center space-y-2 border border-gray-100 rounded-lg p-4 shadow-md to-transition hover:shadow-lg">
+  <div class="flex flex-col items-center">
+    {photo && (
+      <div class="rounded-full">
+        <img
+          class="w-32 h-32 object-cover rounded-full"
+          src={photo}
+          alt={name}
+        />
+      </div>
+    )}
+    <div class="text-center">
+      <h2 class="text-lg font-bold">
+        {name}
+      </h2>
+      <p class="text-sm text-gray-500">
+        {role}
+      </p>
+      {bio && (
+        <div class="rounded-lg">
+          <div id={`bio-text-${uniqueId}`} class="hidden transition-all duration-300 ease-in-out mt-1">
+			<div set:html={bio} />
+          </div>
+          <button 
+            id={`toggle-button-${uniqueId}`}
+            class="px-4 py-2 mt-2 text-secondary rounded hover:text-muted hover:bg-gray-100"
+          >
+            Show Bio
+          </button>
+        </div>
+      )}
+    </div>
+  </div>
+</li>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleButtons = document.querySelectorAll('[id^="toggle-button-"]');
+    toggleButtons.forEach(button => {
+      const uniqueId = button.id.split('-').slice(2).join('-');
+      const bioText = document.getElementById(`bio-text-${uniqueId}`);
+      
+      button.addEventListener('click', () => {
+        const isHidden = bioText.classList.toggle('hidden');
+        button.textContent = isHidden ? 'Show Bio' : 'Hide Bio';
+      });
+    });
+  });
+</script>

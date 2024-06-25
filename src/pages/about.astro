@@ -1,0 +1,52 @@
+---
+import CodingCourses from "~/components/CodingCourses.astro";
+import Hero from "../components/Hero.astro";
+import CallToAction from "../components/CallToAction.astro";
+import Layout from "../layouts/PageLayout.astro";
+import Headline from "~/components/Headline.astro";
+import WidgetWrapper from "~/components/WidgetWrapper.astro";
+import { contentfulClient } from "~/lib/contentful";
+import Contributor from "~/components/Contributor.astro";
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+
+const metadata = {
+  title: "Codeology - About Us",
+  ignoreTitleTemplate: true,
+};
+
+const entries = await contentfulClient.getEntries({
+  content_type: "contributor",
+});
+
+const constributors = entries.items.map((item) => {
+  return {
+	name: item.fields.name,
+    role: item.fields.role,
+    bio: item.fields.bio.content.map((content) => documentToHtmlString(content)).join(''),
+    photo: item['fields']['photo']['fields']['file']['url'],
+  };
+});
+---
+<Layout metadata={metadata}>
+    <WidgetWrapper containerClass={`max-w-7xl mx-auto`} >
+    <Headline
+        tagline="About Us"
+        title="Meet the team behind Codeology"
+        subtitle="We are a group of passionate individuals who believe that everyone should have access to coding education. We are dedicated to facilitate free coding lessons to anyone who is interested in learning."
+    />
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {
+            constributors.map((contributor) => (
+                <Contributor
+                    name={contributor.name}
+                    role={contributor.role}
+                    bio={contributor.bio}
+                    photo={contributor.photo}
+                />
+            ))
+        }
+    </div>
+    
+  
+</WidgetWrapper>
+</Layout>
